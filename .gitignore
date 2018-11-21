@@ -2,3 +2,4 @@ src/xmlGet.o
 .vscode/settings.json
 ./test
 ./FortCollins.xml
+.vscode

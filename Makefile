@@ -26,4 +26,4 @@ test: $(TOBJ) $(OBJ)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJ) myprog
+	rm -f $(OBJ) weather test *.xml

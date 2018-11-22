@@ -5,3 +5,5 @@ src/xmlGet.o
 ./src/test1.cpp
 *.o
 *.xml
+src/test/*.cpp
+src/test/*.o

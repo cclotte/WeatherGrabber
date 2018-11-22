@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ostream>
 #include <fstream>
+#include <unistd.h>
 
 #include "curl/curl.h"
 
@@ -44,14 +45,9 @@ class weatherGet{
 
     private:
         CURL *curl;
-        std::string locationData;
-        std::string currentConditionData;
-        std::string forecastData;
-        std::string locationKey;
-        std::string locationURL;
-        std::string forecastURL;
-        std::string currentCondURL;
-        std::string cityName;
+        std::string locationData, currentConditionData, forecastData, locationKey, cityName;
+        std::string locationURL, forecastURL, currentCondURL;
+        int key;
 
         
 };

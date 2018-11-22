@@ -1,4 +1,7 @@
 src/xmlGet.o
-./test
+./src/test
 ./FortCollins.xml
 .vscode
+./src/test1.cpp
+*.o
+*.xml

@@ -1,19 +1,33 @@
 #include "xmlGet.h"
 
-xmlGet::xmlGet(){};
-//gets weather data and returns path to saved data
-std::string xmlGet::get(std::string url, FILE *fptr){
-    CURL *curl;
-    CURLcode res;
-  
+weatherGet::weatherGet() {
     curl_global_init(CURL_GLOBAL_ALL);
- 
-  
     curl = curl_easy_init();
+};
+
+
+
+//write callback for writing data to string
+static size_t write_callback(char *contents, size_t size, size_t nmemb, void *userp){
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+};
+
+
+
+//gets weather data and returns path to saved data
+std::string weatherGet::getLocationData(){
+    //CURL *curl;
+    
+    CURLcode res;
+    //char *temp;
+  
     if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, locationURL.c_str());
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fptr);
+        locationData.clear();
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &locationData);
     
     res = curl_easy_perform(curl);
      
@@ -25,4 +39,17 @@ std::string xmlGet::get(std::string url, FILE *fptr){
     }
     curl_global_cleanup();
     return "Poop";
+};
+
+int weatherGet::writeToFile(){
+    std::ofstream oss;
+
+    oss.open(cityName + ".xml");
+
+    oss << locationData;
+
+    oss.close();
+
+    return 1;
+
 };

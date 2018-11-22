@@ -15,15 +15,15 @@ TOBJ = $(TESTS:.cpp=.o)
 TOBJ := $(TOBJ:$(TESTDIR)/=$(OBJDIR))
 
 #OBJ = $(patsubst %,$(OBJDIR)/%,$(_OBJ))
-CXXFLAGS = -I$(IDIR) -Wall
+CXXFLAGS = -I$(IDIR) -Wall -g
 LDFLAGS = -lcurl
 
 weather: $(OBJ)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
 test: $(TOBJ) $(OBJ) 
-	$(CXX) -o $@ $^ $(LDFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS) -g
 
 .PHONY: clean
 clean:
-	rm -f $(OBJ) weather test *.xml
+	rm -f $(OBJ) $(TOBJ) weather test *.xml

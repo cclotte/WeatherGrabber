@@ -8,3 +8,4 @@ src/xmlGet.o
 src/test/*.cpp
 src/test/*.o
 APIkey.tlf
+test

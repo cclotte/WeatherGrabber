@@ -33,7 +33,7 @@ std::string parse::uniqueData(std::string keyPhrase){
             }
         }
     }
-    cout << key;
+    //cout << key;
     file.close();
-    return s;
+    return key;
 };

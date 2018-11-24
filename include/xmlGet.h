@@ -26,13 +26,17 @@ class weatherGet{
 
         int setCityName(std::string _cityName){cityName = _cityName; return 0;};
 
+        std::string getLocationKey(){return locationKey;};
+
+        std::string getCurrentCondURL(){return currentCondURL;};
+        std::string getLocationURL(){return locationURL;};
         //gets weather data and returns path to saved data
         std::string getLocationData();
         
-        //gets location key after getLocationData has been called
-        std::string getLocationKey();
+        // //gets location key after getLocationData has been called
+        // std::string getLocationKey();
 
-        //TODO
+        //TODO merge into one get data method, possibly by passing url?
         //gets current condition data (how to not rewrite code? - call getLocation? - need to rewrite getLocation 
         // with less hardcode)
         std::string getCurrentConditionData();
@@ -41,7 +45,8 @@ class weatherGet{
         std::string getForecastData();
 
         //write data to file (how to not rewrite code?)
-        int writeToFile();
+        //TODO make own class since writing to file isn't what this does
+        int writeToFile(std::string filename, std::string *data);
 
     private:
         CURL *curl;

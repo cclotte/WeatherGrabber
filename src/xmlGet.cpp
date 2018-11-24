@@ -35,19 +35,40 @@ std::string weatherGet::getLocationData(){
         fprintf(stderr, "curl_easy_perform() failed: %s\n",
             curl_easy_strerror(res));
  
-    curl_easy_cleanup(curl);
+    //curl_easy_cleanup(curl);
     }
-    curl_global_cleanup();
-    return "Poop";
+    //curl_global_cleanup();
+    return locationData;
 };
 
-int weatherGet::writeToFile(){
+std::string weatherGet::getCurrentConditionData(){
+    CURLcode res;
+    //char *temp;
+  
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, currentCondURL.c_str());
+        curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+        currentConditionData.clear();
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &currentConditionData);
+    
+    res = curl_easy_perform(curl);
+     
+    if(res != CURLE_OK)
+        fprintf(stderr, "curl_easy_perform() failed: %s\n",
+            curl_easy_strerror(res));
+ 
+    //curl_easy_cleanup(curl);
+    }
+    //curl_global_cleanup();
+    return currentConditionData;
+};
+
+int weatherGet::writeToFile(std::string filename, std::string *data){
     std::ofstream oss;
 
-    oss.open(cityName + ".xml");
-
-    oss << locationData;
-
+    oss.open(filename + ".xml");
+    if(!(oss << *data)) exit(EXIT_FAILURE);
     oss.close();
 
     return 1;
